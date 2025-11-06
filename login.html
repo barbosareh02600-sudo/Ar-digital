@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | AR-DIGITAL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .grad-roxo { background-image: linear-gradient(to right, #a855f7, #9333ea); }
+    input { font-size: 16px !important; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+    <div class="md:w-2/5 grad-roxo p-8 md:p-12 text-white flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+            <i data-lucide="mail" class="w-7 h-7"></i>
+          </div>
+          <h1 class="text-2xl font-bold">AR-DIGITAL</h1>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Bem-vindo de volta!</h2>
+        <p class="text-purple-100">Acesse o sistema de Recibo de Entrega com sua DRT e senha.</p>
+      </div>
+      <div class="hidden md:block">
+        <p class="text-sm text-purple-200">© 2025 AR-DIGITAL</p>
+      </div>
+    </div>
+
+    <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+      <div class="max-w-sm mx-auto w-full">
+        <div class="flex justify-center mb-8">
+          <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+            U
+          </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Login</h3>
+
+        <form id="loginForm" class="space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">DRT</label>
+            <input type="text" id="drt" placeholder="Ex: 12345678" class="w-full h-12 px-4 rounded-xl border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition" maxlength="8" required />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Senha</label>
+            <input type="password" id="password" placeholder="Digite sua senha" class="w-full h-12 px-4 rounded-xl border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition" required />
+          </div>
+
+          <button type="submit" class="w-full h-12 grad-roxo text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center">
+            <i data-lucide="log-in" class="w-5 h-5 mr-2"></i>
+            Entrar
+          </button>
+
+          <p class="text-center text-sm text-gray-500 mt-6">
+            Esqueceu a senha? <a href="#" class="text-purple-600 font-semibold hover:underline">Clique aqui</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const drt = document.getElementById("drt").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!/^\d{8}$/.test(drt)) {
+        alert("O DRT deve conter exatamente 8 números!");
+        return;
+      }
+
+      if (!password) {
+        alert("Digite sua senha!");
+        return;
+      }
+
+      try {
+        const response = await fetch("users.json");
+        const users = await response.json();
+
+        const user = users.find(u => u.drt === drt && u.password === password);
+
+        if (user) {
+          const perfil = {
+            nome: user.nome || "Usuário",
+            email: user.email || "",
+            inicial: (user.nome || "U").charAt(0).toUpperCase(),
+            drt: user.drt
+          };
+          localStorage.setItem("perfil", JSON.stringify(perfil));
+          alert(`Bem-vindo, ${perfil.nome}!`);
+          window.location.href = "index.html";
+        } else {
+          alert("DRT ou senha incorretos!");
+        }
+      } catch (error) {
+        console.error("Erro:", error);
+        alert("Erro ao carregar dados. Verifique sua conexão.");
+      }
+    });
+  </script>
+</body>
+</html>

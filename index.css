@@ -1,0 +1,47 @@
+
+    .grad-azul { background-image: linear-gradient(to right, #6366f1, #4f46e5); }
+    .grad-verde { background-image: linear-gradient(to right, #22c55e, #16a34a); }
+    .grad-roxo { background-image: linear-gradient(to right, #a855f7, #9333ea); }
+    .anim-pulso { animation: pulso 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulso { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    #canvas-recebedor { width: 100% !important; height: 150px !important; touch-action: none; }
+    #video-camera { width: 100%; height: auto; max-width: 100%; border-radius: 0.75rem; }
+    .esconde-barra { -ms-overflow-style: none; scrollbar-width: none; }
+    .esconde-barra::-webkit-scrollbar { display: none; }
+    html { scroll-behavior: smooth; }
+
+    /* MOBILE-FIRST */
+    @media (max-width: 640px) {
+      body { font-size: 15px; line-height: 1.5; }
+      h1 { @apply text-2xl; }
+      h2 { @apply text-xl; }
+      h3 { @apply text-lg font-bold; }
+      input, select, button, textarea, canvas { 
+        min-height: 52px !important; 
+        font-size: 16px !important; 
+        padding: 0 1rem !important;
+      }
+      button { touch-action: manipulation; }
+      .btn-mobile { @apply w-full h-12 text-base font-medium rounded-xl; }
+      #cards-estatisticas { @apply grid-cols-2 gap-4; }
+      #cards-estatisticas > div { @apply p-4; }
+      #cards-estatisticas h3 { @apply text-2xl; }
+      #lista-entregas { @apply grid-cols-1 gap-4; }
+      #passos { @apply justify-center px-2; }
+      #passos > div { @apply min-w-12; }
+      #passos > div > div { @apply w-10 h-10 text-sm; }
+      #passos > div > p { @apply text-xs mt-1; }
+      .canvas-mobile { @apply h-32; }
+      #video-camera { @apply h-64 object-cover; }
+      #capturar-foto-btn { @apply w-16 h-16; }
+      #galeria-fotos img { @apply h-20; }
+      #modal-detalhes .bg-white { @apply p-5; }
+      #modal-detalhes button { @apply h-12; }
+    }
+
+
+    @media (min-width: 641px) {
+      #menu-mobile-stats { @apply hidden; }
+    }

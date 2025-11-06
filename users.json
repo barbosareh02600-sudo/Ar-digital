@@ -1,0 +1,14 @@
+[
+  {
+    "drt": "12345678",
+    "password": "teste",
+    "nome": "João Silva",
+    "email": "joao@email.com"
+  },
+  {
+    "drt": "99999999",
+    "password": "ULISSES",
+    "nome": "ULISSES",
+    "email": "ulisses@email.com"
+  }
+]
